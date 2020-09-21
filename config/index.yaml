@@ -1,4 +1,4 @@
-# gcloud datastore indexes create ./index.yaml --project your-gcp-project-here
+# # gcloud datastore indexes create ./index.yaml --project your-gcp-project-here
 
 indexes:
 - kind: LibraryViewDoc

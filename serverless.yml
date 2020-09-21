@@ -1,0 +1,45 @@
+service: express-app
+
+plugins:
+  - serverless-offline
+  - serverless-aws-static-file-handler/plugins/BinaryMediaTypes
+  
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: prod
+  region: us-west-2
+
+functions:
+  app:
+    handler: server/index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY /{proxy+}'
+    environment:
+      NODE_ENV: production
+      GOOGLE_CLIENT_ID: 62147345228-bjs9a5p5r0rrcnk8282ggpgbcofh8uhr.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: jWsBj0KKtEpI1vEpp0vRoV5B
+      GCP_PROJECT_ID: sewerai-test
+      # comma separated list of approved access domains or email addresses (regex is supported).
+      APPROVED_DOMAINS: sewerai.com
+      SESSION_SECRET: edfd30a6badc26dbff6d5e701de251bb9aaadafb6aa51ebbf1d047feae4b4c31
+      # Google drive Configuration
+      # team or folder ("folder" if using a folder instead of a team drive)
+      DRIVE_TYPE: folder
+      # the ID of your team's drive or shared folder. The string of random numbers and letters at the end of your team drive or folder url.
+      DRIVE_ID: 1lBpA4tyj44JlivZD6lBsEJwkKhTNNIfV
+
+  staticserve:
+    handler: server/staticserve.handler
+    events:
+      - http:
+          path: /assets/{pathvar+}
+          method: get
+
+custom:
+  apiGateway:
+    binaryMediaTypes:
+      - "image/svg"
+      - "image/x-icon"

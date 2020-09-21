@@ -1,8 +1,11 @@
 'use strict'
-const path = require('path')
 
+//require('dotenv').config()
+const path = require('path')
+//const serverless = require('serverless-http')
 const express = require('express')
 const csp = require('helmet-csp')
+
 
 const {middleware: cache} = require('./cache')
 const {getMeta} = require('./list')
@@ -17,8 +20,11 @@ const errorPages = require('./routes/errors')
 
 const userAuth = requireWithFallback('userAuth')
 const customCsp = requireWithFallback('csp')
+const log = require('./logger')
+
 
 const app = express()
+
 
 const {preload, postload} = allMiddleware
 
@@ -45,6 +51,7 @@ app.use(userInfo)
 
 // serve all files in the public folder
 app.use('/assets', express.static(path.join(__dirname, '../public')))
+
 
 // strip trailing slashes from URLs
 app.get(/(.+)\/$/, (req, res, next) => {
@@ -85,9 +92,10 @@ app.use(redirects)
 app.use(errorPages)
 
 // If we are called directly, listen on port 3000, otherwise don't
-
 if (require.main === module) {
   app.listen(parseInt(process.env.PORT || '3000', 10))
 }
 
 module.exports = app
+//module.exports.handler = serverless(app2)
+
