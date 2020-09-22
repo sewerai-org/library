@@ -1,0 +1,36 @@
+version: 2.1
+
+orbs:
+  gcp-cli: circleci/gcp-cli@1.8.4
+
+workflows:
+  version: 2
+  deploy_library:
+    jobs:
+      - deploy-to-production:
+          context: GCP-LIBRARY
+
+jobs:
+  deploy-to-production:
+    executor: gcp-cli/default
+    steps:
+      - checkout
+      - gcp-cli/install
+      - gcp-cli/initialize
+      - run:
+          name: Create .env
+          command: |
+            touch .env
+            echo NODE_ENV=$NODE_ENV >> .env
+            echo GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID >> .env
+            echo GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET >> .env
+            echo GCP_PROJECT_ID=$GCP_PROJECT_ID >> .env
+            echo APPROVED_DOMAINS=$APPROVED_DOMAINS >> .env
+            echo DRIVE_TYPE=$DRIVE_TYPE >> .env 
+            echo DRIVE_ID=$DRIVE_ID >> .env
+            echo CUSTOMIZATION_GIT_REPO=$CUSTOMIZATION_GIT_REPO >> .env
+            echo SESSION_SECRET=$SESSION_SECRET >> .env
+            echo $GOOGLE_APPLICATION_CREDENTIALS > server/.auth.json
+      - run:
+          name: Deploy to Google
+          command: gcloud app deploy --project=$GOOGLE_PROJECT_ID --quiet 

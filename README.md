@@ -1,4 +1,5 @@
-Library [![Build Status](https://travis-ci.org/nytimes/library.svg?branch=master)](https://travis-ci.org/nytimes/library)
+# Template:
+[![SewerAI](https://circleci.com/gh/sewerai-org/library.svg?style=svg&circle-token=8db5a19007bd775784331c339fb96fe578cf2916)](<LINK>)
 ========
 
 A collaborative newsroom documentation site, powered by Google Docs.
