@@ -1,0 +1,26 @@
+branding:
+  name: About SewerAI 
+  org: SewerAI
+  orgDomain: sewerai.com
+  prettyName: About Library
+  favicon: /assets/images/sewerai.png
+
+landing:
+  tagline: A simple documentation site, built from content in Google Docs.
+  viewAll: View All Docs
+  quickLink: <a href="/get-started">Get started</a>.
+
+footer:
+  helpText: For help contributing or to report a problem, consult <a href="https://github.com/nytimes/library">the Github Page</a>.
+  defaultEmail: sayhi@sewerai.com
+
+search:
+  placeholder: What do you want to know about Library?
+  results:
+    none:
+      suggestion: To request a new page, submit <a href="https://github.com/nytimes/library">a PR on Github</a>.
+
+# errors
+error:
+  403:
+    message: "<p>For this documentation site, we've disabled the final step of the Move File workflow. Normally, this request would succeed and you'd be taken to the new url for your page.</p>"
